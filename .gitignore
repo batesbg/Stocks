@@ -3,8 +3,6 @@
 *.3mf
 *.amf
 
-# Rendered previews
-*.png
 
 # OpenSCAD backup files
 *.scad~

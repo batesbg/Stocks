@@ -1,18 +1,21 @@
-# CLAUDE.md — Stocks Repository
+# CLAUDE.md — 3D Printer Prototypes
 
 ## Project Overview
 
-This is the **Stocks** repository (`batesbg/Stocks`). It is a new project; conventions described here should be followed as the codebase grows.
+This repository contains **OpenSCAD** designs for 3D printer prototypes. Each prototype lives in its own subdirectory under `prototypes/` with a `.scad` source file and any supporting files.
 
 ## Repository Structure
 
 ```
 Stocks/
-├── CLAUDE.md          # This file — guidance for AI assistants and contributors
-└── (project files)    # To be added as the project develops
+├── CLAUDE.md              # This file — guidance for AI assistants and contributors
+├── .gitignore             # Ignores generated STL/PNG files
+├── prototypes/            # One subdirectory per prototype design
+│   └── <name>/
+│       ├── <name>.scad    # Main OpenSCAD source file
+│       └── README.md      # (optional) Notes, print settings, photos
+└── libraries/             # Shared OpenSCAD modules and functions
 ```
-
-As the project evolves, update this section to reflect the actual directory layout (e.g., `src/`, `tests/`, `docs/`, `scripts/`, config files).
 
 ## Development Workflow
 
@@ -62,20 +65,22 @@ As the project evolves, update this section to reflect the actual directory layo
 - Ensure existing tests pass before pushing changes.
 - Name test files and functions clearly to describe what they verify.
 
+## OpenSCAD Conventions
+
+- Use **millimeters** as the unit of measurement (OpenSCAD default).
+- Parameterize dimensions with variables at the top of the file so designs are easy to customize.
+- Use `$fn` (or `$fa`/`$fs`) to control resolution; set a reasonable default (e.g., `$fn = 50`).
+- Name modules descriptively (e.g., `phone_stand_base()`, not `part1()`).
+- Add a comment block at the top of each `.scad` file describing what the prototype is and key dimensions.
+
 ## Useful Commands
 
-> **Note:** Update this section as tooling is introduced (e.g., build commands, test runners, linters).
-
 ```bash
-# Example placeholders — replace with actual commands as they are defined
-# Run tests
-# npm test / pytest / go test ./...
+# Render a prototype to STL from the command line
+openscad -o output.stl prototypes/<name>/<name>.scad
 
-# Lint
-# npm run lint / flake8 / golangci-lint run
-
-# Build
-# npm run build / make / go build ./...
+# Render a preview PNG
+openscad --camera=0,0,0,55,0,25,200 --imgsize=800,600 -o preview.png prototypes/<name>/<name>.scad
 ```
 
 ## Notes for AI Assistants
